@@ -31,7 +31,7 @@ module.exports = {
     const matchedCart = await Cart.find({
       user_id: user_id,
     }).populate("cart_product");
-    if (matchedCart.lenth == 0)
+    if (matchedCart.length < 0)
       return res.status(404).json({ success: false, message: "Cart is Empty" });
     else
       return res
@@ -54,7 +54,7 @@ module.exports = {
       return res.status(200).json({ success: "Deleted Successfully" });
     } else if (result.acknowledged === true && result.deletedCount === 0) {
       return res.status(200).json({ success: "Already Deleted" });
-    } 
+    }
     console.log(result, "result");
   }),
 };

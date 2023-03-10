@@ -1,27 +1,19 @@
-const app = require('./app');
+const app = require("./app");
 const env = require("dotenv");
-const connectDatabase = require('./config/database');
-
-
+const connectDatabase = require("./config/database");
+const Razorpay = require("razorpay");
 
 //config
-env.config({path:"config/config.env"})
-
-
-
+env.config({ path: "config/config.env" });
 
 //connectingDb
 connectDatabase();
 
-const server=app.listen(process.env.PORT,()=>{
-    console.log(`Server is working on ${process.env.PORT}`)
-})
-
-
-
+const server = app.listen(process.env.PORT, () => {
+  console.log(`Server is working on ${process.env.PORT}`);
+});
 
 //checking if smtp is connected or not
-
 
 // const net = require('net');
 
@@ -40,14 +32,18 @@ const server=app.listen(process.env.PORT,()=>{
 //   console.log(`Disconnected from ${serverAddress}:${serverPort}`);
 // });
 
-
-
 //Unhandled Promise Rejection
 //server band ho jayega faltu load nahi lega sending load load load .....no ab ye nahi hoga
-process.on("unhandledRejection",err=>{
-    console.log(`Error:${err.message}`);
-    console.log("Shutting down server due to unhandeled promise rejection");
-    server.close(()=>{
-        process.exit();
-    })
-})
+process.on("unhandledRejection", (err) => {
+  console.log(`Error:${err.message}`);
+  console.log("Shutting down server due to unhandeled promise rejection");
+  server.close(() => {
+    process.exit();
+  });
+});
+
+//Razorpay instance
+exports.instance = new Razorpay({
+      key_id: "rzp_test_7S7Ic4GDr4L57f",
+      key_secret: "80AzQTSnLXxgB6mIfIEAicMN",
+});
