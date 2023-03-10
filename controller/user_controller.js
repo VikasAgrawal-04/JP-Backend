@@ -27,7 +27,6 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   });
 
   sendToken(user, 201, res); //201 = created
-  
 });
 
 //Login User
@@ -177,7 +176,7 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     email: req.body.email,
     phone: req.body.phone,
     address: req.body.address,
-    zip: req.body.zip,
+    city: req.body.city,
     state: req.body.state,
     zip: req.body.zip,
   };
@@ -192,6 +191,8 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
+    message: "Updated Successfully",
+    user,
   });
   sendToken(user, 200, res);
 });
