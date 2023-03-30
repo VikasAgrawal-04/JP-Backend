@@ -44,6 +44,6 @@ process.on("unhandledRejection", (err) => {
 
 //Razorpay instance
 exports.instance = new Razorpay({
-      key_id: "rzp_test_7S7Ic4GDr4L57f",
-      key_secret: "80AzQTSnLXxgB6mIfIEAicMN",
+      key_id: process.env.RAZORPAY_API_KEY,
+      key_secret: process.env.RAZORPAY_API_SECRET,
 });

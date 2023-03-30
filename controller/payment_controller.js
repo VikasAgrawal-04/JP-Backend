@@ -1,14 +1,19 @@
 const instance = require("../index");
-// const Razorpay = require("razorpay");
 const catchAsyncError = require("../middleware/catchAsyncError");
+const OnlinePaymentDetails = require("../models/onlinePaymentDetails");
+
 
 exports.checkout = catchAsyncError(async (req, res, next) => {
-    
   const options = {
-    amount: 50000, // amount in the smallest currency unit
+    amount: Number(req.body.amount * 100), // amount in the smallest currency unit
     currency: "INR",
   };
-  const order = await instance.orders.create(options);
-  console.log(order, "order creation");
-  res.status(200).json({ success: true });
+  const order = await instance["instance"].orders.create(options);
+  order.user = req.body.userId;
+  const orderDetails = await OnlinePaymentDetails.create(order);
+  res.status(200).json({ success: true, orderDetails });
+});
+exports.paymentVerification = catchAsyncError(async (req, res, next) => {
+  console.log(req.body,"verification here");
+  res.status(200).json({success:true})  
 });

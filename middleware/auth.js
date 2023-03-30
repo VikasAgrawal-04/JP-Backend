@@ -6,7 +6,6 @@ const User = require("../models/userModel");
 
 //used to check if user is logged in or not
 exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
-  console.log("ankh ke andhe dekh yhan ", req.headers);
   const { authorization } = req.headers;
 
   // console.log(token);
