@@ -8,8 +8,18 @@ const catchAsyncError = require("../middleware/catchAsyncError");
 //Register a user
 
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
-  const { fname, lname, email, password, phone, address, city, state, zip } =
-    req.body;
+  const {
+    fname,
+    lname,
+    email,
+    password,
+    phone,
+    address,
+    city,
+    state,
+    zip,
+    role,
+  } = req.body;
   const user = await User.create({
     fname,
     lname,
@@ -20,6 +30,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     city,
     state,
     zip,
+    role,
     avatar: {
       public_id: "this is sample id",
       url: "profilePicUrl",
