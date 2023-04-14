@@ -11,6 +11,7 @@ exports.checkout = catchAsyncError(async (req, res, next) => {
   const order = await instance["instance"].orders.create(options);
   order.user = req.body.userId;
   const orderDetails = await OnlinePaymentDetails.create(order);
+  console.log(orderDetails);
   res.status(200).json({ success: true, orderDetails });
 });
 exports.paymentVerification = catchAsyncError(async (req, res, next) => {

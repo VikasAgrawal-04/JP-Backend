@@ -5,16 +5,16 @@ const menuItem = new mongoose.Schema({
   slug: { type: String, required: true, unique: true, index: true },
   delivered_from: { type: Date },
   delivered_to: { type: Date },
-  delivey_time:{type:String,required:true},
-  ratings:{type:Number,required:true},
-  price:{type:Number,required:true},
-  discount:{type:Number,requried:true},
+  delivey_time: { type: String, required: true },
+  ratings: { type: Number, default: "5" },
+  price: { type: Number, required: true },
+  discount: { type: Number, requried: true },
   createdAt: { type: Date, default: Date.now },
   modifiedAt: { type: Date, default: Date.now },
   deleted: { type: Boolean, default: false },
   images: {
-    public_id: { type: String, required: true },
-    url: { type: String, required: true },
+    public_id: { type: String },
+    url: { type: String },
   },
 });
 

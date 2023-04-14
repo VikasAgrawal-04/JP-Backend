@@ -17,21 +17,17 @@ module.exports = {
       .select("-deleted -createdAt -modifiedAt");
     console.log(matchedCategory, "  ::matched category");
     if (matchedCategory.length == 0)
-      return res
-        .status(404)
-        .json({
-          success: false,
-          matchedCategory,
-          message: "Category not found ",
-        });
+      return res.status(404).json({
+        success: false,
+        matchedCategory,
+        message: "Category not found ",
+      });
     else
-      return res
-        .status(200)
-        .json({
-          success: true,
-          matchedCategory,
-          message: "Category found successfully",
-        });
+      return res.status(200).json({
+        success: true,
+        matchedCategory,
+        message: "Category found successfully",
+      });
     // slug , category_name , description in future
   }),
 
@@ -43,7 +39,6 @@ module.exports = {
 
   //Create Category--Admin Only
   createCategory: catchAsyncErrors(async (req, res, next) => {
-    request.body.user = req.user.id;
     const category = await Category.create(req.body);
     res.status(201).json({ success: true, category });
   }),
@@ -51,13 +46,10 @@ module.exports = {
   //Update category--Admin
 
   updateCategory: catchAsyncErrors(async (req, res, next) => {
+    console.log("updated category");
     let category = await Category.findById(req.params._id);
 
     if (!category) {
-      // return res.status(500).json({
-      //     success:false,
-      //     message:"Category not found"
-      // })
       return next(new ErrorHandler("Category not found", 404));
     }
     category = await Category.findByIdAndUpdate(req.params._id, req.body, {
@@ -76,10 +68,6 @@ module.exports = {
     let category = await Category.findById(req.params._id);
 
     if (!category) {
-      // return res.status(500).json({
-      //     success:false,
-      //     message:"Category not found"
-      // })
       return next(new ErrorHandler("Category not found", 404));
     }
     await category.remove();
